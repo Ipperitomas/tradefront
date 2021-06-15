@@ -1,0 +1,20 @@
+.bubble {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    color: #f68661;
+    background-color: #10a518;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+}
+
+.select_btn{
+	background: #9fa19f!important;
+}
+body{
+    background:#f4f6f9;
+}
