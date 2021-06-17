@@ -16,7 +16,6 @@
                 <th> Id </th>
                 <th> Nombre </th>
                 <th> Edición </th>
-                
               </tr>
           </thead>
           <tbody v-if="listado && listado.data">
@@ -28,7 +27,7 @@
                 {{elem_unico.nombre}}
               </td>
               <td>
-                <button class="btn btn-primary btn-sm"> <i class="fas fa-edit"></i> </button>
+                <button class="btn btn-primary btn-sm" @click="Editar(elem_unico.id)">  <i class="fas fa-edit"></i> </button>
               </td>
             </tr>
           </tbody>
@@ -78,6 +77,12 @@
           vue_instance.pages = response.data.data.links;
           vue_instance.page_selected = page;
         });
+      },
+      Editar(rubro_id){
+        console.log(rubro_id);
+        if(rubro_id){
+          window.location.href = window.location.origin+"/rubros/edit/"+rubro_id;
+        }
       }
     },
     mounted:function(){

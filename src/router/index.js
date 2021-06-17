@@ -38,7 +38,11 @@ const routes = [
     name: 'Nuevo Producto',
     component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/creacion_rubro.vue')
   },
-  
+  {
+    path: '/rubros/edit/:id',
+    name: 'Editar Rubro',
+    component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/edicion_rubro.vue')
+  },
   {
     path: '/movimientos',
     name: '',

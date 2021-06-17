@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container">
-      <form id="form_new_product" name="form_new_product" @submit.prevent="CreateProduct">
+      <form id="form_new_product" name="form_new_product" @submit.prevent="EditProduct">
         <div class="row">
           <div class="col-3">
             <label for=""> Nombre </label>
@@ -23,11 +23,19 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-3">
+            <label for=""> Stock Minimo </label>
+            <input name="stock_minimo" id="stock_minimo" class="form-control" v-model="datos.stock_min">
+          </div>
+          <div class="col-3">
+            <label for=""> Stock Maximo </label>
+            <input name="stock_maximo" id="stock_maximo" class="form-control" v-model="datos.stock_max">
+          </div>
+          <div class="col-3">
             <label for=""> Descripcion </label>
             <textarea name="descripcion" id="descripcion" v-model="datos.descripcion" cols="30" rows="10" class="form-control" value=""></textarea>
           </div>
-          <div class="col-6">
+          <div class="col-3">
             <label for=""> Caracteristicas </label>
             <textarea name="caracteristicas" id="caracteristicas"  v-model="datos.caracteristicas" cols="30" rows="10" class="form-control" value=""></textarea>
           </div>
@@ -71,22 +79,24 @@
         let ruta = "products";
         let vue_instance = this;
         let rsp = this.getDataById(ruta,vue_instance.id_product).then(function response(response){
-          console.log("response.data -> ",response.data.data);
           vue_instance.datos = response.data.data;
           document.getElementById("rubro_id").value = vue_instance.datos.rubro_id;
         });
       },
       EditProduct(){
         this.form = this.RecolectarDatos();
+        console.log(this.form);
         let vue_instance = this;
-        this.Save('products',vue_instance.form).then(function response(response){
+        let ruta = 'products/'+this.id_product;
+        console.log(ruta);
+        this.Save(ruta,vue_instance.form).then(function response(response){
           swal({
               title: "Se modifico el Producto correctamente!",
               text: "",
               icon: "success",
               button: "Ok",
             }).then((value) => {
-              window.location.href = window.location.origin+"/listadosprod";
+              // window.location.href = window.location.origin+"/listadosprod";
             });
         }).catch((error) => 
         {
@@ -105,6 +115,8 @@
           "nombre":formulario.nombre.value,
           "codigo":formulario.codigo.value,
           "precio":formulario.precio.value,
+          "stock_min":formulario.stock_minimo.value,
+          "stock_max":formulario.stock_maximo.value,
           "rubro_id":formulario.rubro_id.value,
           "descripcion":formulario.descripcion.value,
           "caracteristicas":formulario.caracteristicas.value,
@@ -114,10 +126,7 @@
     },
     mounted:function(){
       this.GetRubros();
-      console.log(window.location.origin);
-      console.log(this.$route);
       this.id_product = this.$route.params.id;
-      console.log(this.id_product);
       this.GetProductById();
     }
   }

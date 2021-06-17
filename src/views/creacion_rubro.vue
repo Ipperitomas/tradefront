@@ -38,10 +38,9 @@
             });
           })
           .catch((error) => {
-            console.error(error);
             swal({
               title: "Hubo problemas para crear su rubro, reintente luego!",
-              text: "",
+              text: error.response.data.message.error,
               icon: "error",
               button: "Ok",
             })

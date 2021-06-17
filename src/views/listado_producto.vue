@@ -18,6 +18,8 @@
                 <th> Codigo </th>
                 <th> Rubro </th>
                 <th> Precio </th>
+                <th> Min. Stock </th>
+                <th> Max. Stock </th>
                 <th> Edición </th>
                 
               </tr>
@@ -38,6 +40,12 @@
               </td>
               <td> 
                 {{elem_unico.precio}}
+              </td>
+              <td> 
+                {{elem_unico.stock_min}}
+              </td>
+              <td> 
+                {{elem_unico.stock_max}}
               </td>
               <td>
                 <button class="btn btn-primary btn-sm" @click="Editar(elem_unico.id)">  <i class="fas fa-edit"></i> </button>
