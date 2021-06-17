@@ -88,6 +88,9 @@
                         <th style="text-align:right; font-size: 12px; color:#8f8f8f; padding-bottom: 15px;">
                           Precio Total
                         </th>
+                        <th style="text-align:right; font-size: 12px; color:#8f8f8f; padding-bottom: 15px;">
+
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -107,6 +110,9 @@
                         <td style="padding-top:0px; padding-bottom:0; text-align: right;">
                           <p style="font-size: 13px; line-height: 1; color:#303030; margin-bottom:0; margin-top:0; vertical-align:top; white-space:nowrap;">$
                           {{elem_selected.p_total}}</p>
+                        </td>
+                        <td style="padding-top:0px; padding-bottom:0; text-align: right;">
+                          <button @click="EliminarArticulo(elem_selected.indice)" class="btn btn-danger btn-xs"> <i class="fas fa-times"> </i></button>
                         </td>
                       </tr>
                   </tbody>
@@ -183,7 +189,9 @@
       cabecera:"",
       view_cabecera : true,
       view_body : false,
-      view_factura : false
+      view_factura : false,
+      indice : 0,
+      max_element : 19
     }
     },
     methods:{
@@ -198,22 +206,36 @@
       },
       AddProduct(){
         if(!this.view_factura){
-          this.view_factura= true;
+          this.view_factura = true;
         }
-        let product = {};
-        let productos_all = document.getElementById("productos");
-        let nombre_prod_actual = "";
-        let precio_prod_actual = 0;
-        let p_total = 0;
-        precio_prod_actual = productos_all.options[productos_all.selectedIndex].getAttribute("data-set");
-        nombre_prod_actual = productos_all.options[productos_all.selectedIndex].text;
-        p_total = parseFloat(precio_prod_actual) * this.cantidad_selected;
-        product = {product_id:productos_all.options[productos_all.selectedIndex].value,nombre:nombre_prod_actual,p_unitario:precio_prod_actual,cantidad:this.cantidad_selected,p_total : p_total};
-        this.precio_subtotal = parseFloat(this.precio_subtotal) + parseFloat(p_total);
-        this.precio_total = parseFloat(this.precio_total) + parseFloat(p_total);
-        this.productos_selected.push(product);
-        console.log(this.productos_selected);
-        this.cantidad_selected = null;
+        console.log(this.max_element);
+        // console.log(this.productos_selected.size());
+        console.log(this.productos_selected.length);
+        
+        if(this.max_element >= this.productos_selected.length){
+          let product = {};
+          let productos_all = document.getElementById("productos");
+          let nombre_prod_actual = "";
+          let precio_prod_actual = 0;
+          let p_total = 0;
+          precio_prod_actual = productos_all.options[productos_all.selectedIndex].getAttribute("data-set");
+          nombre_prod_actual = productos_all.options[productos_all.selectedIndex].text;
+          p_total = parseFloat(precio_prod_actual) * this.cantidad_selected;
+          product = {product_id:productos_all.options[productos_all.selectedIndex].value,nombre:nombre_prod_actual,p_unitario:precio_prod_actual,cantidad:this.cantidad_selected,p_total : p_total , indice:this.indice};
+          this.indice++;
+          this.precio_subtotal = parseFloat(this.precio_subtotal) + parseFloat(p_total);
+          this.precio_total = parseFloat(this.precio_total) + parseFloat(p_total);
+          this.productos_selected.push(product);
+          console.log(this.productos_selected);
+          this.cantidad_selected = null;
+        }else{
+          swal({
+              title: "Se llego al maximo de articulos para una factura!",
+              text: "",
+              icon: "error",
+              button: "Ok",
+            })
+        }
       },
       CreateCabecera(){
         this.cabecera = {accion : this.accion_cabecera, fecha : this.fecha_selected}; 
@@ -225,6 +247,11 @@
         objectSend.cabecera = this.cabecera;
         objectSend.cuerpo = this.productos_selected;
         console.log(objectSend);
+      },
+      EliminarArticulo(ident){
+        console.log(ident)
+        console.log(this.productos_selected)
+        this.productos_selected.splice(ident,1);
       }
     },
     mounted:function(){
