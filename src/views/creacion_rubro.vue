@@ -33,6 +33,8 @@
               text: "",
               icon: "success",
               button: "Ok",
+            }).then((value) => {
+              window.location.href = window.location.origin+"/listadorubros";
             });
           })
           .catch((error) => {
@@ -42,10 +44,7 @@
               text: "",
               icon: "error",
               button: "Ok",
-            }).then((value) => {
-              window.location.href = window.location.origin+"/listadorubros";
             })
-
           }).finally(() => {
             
           });

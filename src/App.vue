@@ -21,17 +21,17 @@
         <aside class="main-sidebar sidebar-dark-primary ">
           <a  class="brand-link">
             <img src="assets/logo.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-dark" style="color:white; font-weight:800;">Project name</span>
+            <span class="brand-text font-weight-dark" style="color:white; font-weight:800;">Trade Market</span>
           </a>
       
       
           <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
               <div class="image">
-                <img src="assets/logo.png" class="img-circle elevation-2" alt="User Image">
+                <img src="../src/assets/logo.png" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info text-center">
-                <a>App name</a>
+                <a></a>
               </div>
             </div>
       

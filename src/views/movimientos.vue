@@ -6,17 +6,17 @@
         <div class="row mb-5" >
           <div class="col-5">
             <label for=""> Fecha </label>
-            <input class="form-control" type="date" name="fecha_cabecera" id="fecha_cabecera" v-model="fecha_selected">
+            <input class="form-control" type="date" name="fecha_cabecera" id="fecha_cabecera" v-model="fecha_selected" value="fecha_selected"> 
           </div>
           <div class="col-5">
             <label for=""> Accion </label>
               <select name="accion_cabecera" id="accion_cabecera" class="form-control" v-model="accion_cabecera">
-                <option value="Compra"> Comprar</option>
+                <option value="Compra" selected> Comprar </option>
                 <option value="Venta"> Vender </option>
               </select>
           </div>
-          <div>
-            <button class="btn btn-primary" @click="CreateCabecera" style="margin-top: 3.7vh;"> Crear Cabecera </button>
+          <div class="col-2 mt-4 pt-2">
+            <button class="btn btn-primary" @click="CreateCabecera" > Crear Cabecera </button>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
         <div class="row mb-5" >
           <div class="col-4">
             <label for=""> Productos </label>
-              <select name="productos" id="productos" class="form-control" >
+              <select name="productos" id="productos" class="form-control">
                 <option v-for="elem_unico in listado_productos" v-if="listado_productos" :value="elem_unico.id" :data-set="elem_unico.precio"> {{elem_unico.nombre}} </option>
               </select>
           </div>
@@ -33,9 +33,8 @@
             <label for=""> Cantidad </label>
             <input class="form-control" type="number" name="cantidad_seleccionada" id="cantidad_seleccionada" v-model="cantidad_selected">
           </div>
-          <div class="col-2 ">
-            <label for="">  </label> 
-            <button class="btn btn-success" style="margin-top: 1.8rem !important;" @click="AddProduct"> <i class="fas fa-plus"> </i></button>
+          <div class="col-2 mt-4 pt-2">
+            <button class="btn btn-success" @click="AddProduct"> <i class="fas fa-plus"> </i></button>
           </div>
         </div>
       </div>
@@ -148,10 +147,14 @@
 
               <tr>
                 <td colspan="3" style="text-align:center;">
-                  
                 </td>
             </tr>
         </table>
+      </div>
+      <div class="d-flex justify-content-end">
+        <div class="fixed-bottom" style="left: 75vw!important; bottom: 1vh!important;">
+          <button class="btn btn-primary " @click="CreateFactura"> <i class="fas fa-plus"></i> Crear Factura </button>
+        </div>
       </div>
     </div>
   </div>
@@ -216,12 +219,27 @@
         this.cabecera = {accion : this.accion_cabecera, fecha : this.fecha_selected}; 
         this.view_cabecera= false;
         this.view_body= true;
+      },
+      CreateFactura(){
+        let objectSend = {}
+        objectSend.cabecera = this.cabecera;
+        objectSend.cuerpo = this.productos_selected;
+        console.log(objectSend);
       }
     },
     mounted:function(){
       this.GetArticulos("all");
-      console.log(this.listado_productos);
-      document.getElementsByClassName("main-sidebar sidebar-dark-primary")[0].setAttribute("style","height:38.3cm!important;")
+      
+      
+      document.getElementsByClassName("main-sidebar sidebar-dark-primary")[0].setAttribute("style","height:38.3cm!important;");
+    },
+    created:function(){
+      let f = new Date();
+      let mes = f.getMonth() +1;
+      if(mes < 10){
+        mes = "0"+mes;
+      }
+      this.fecha_selected = f.getFullYear() + "-" + (mes) + "-" + f.getDate();
     }
   }
 </script>
