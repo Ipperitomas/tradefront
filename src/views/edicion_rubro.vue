@@ -55,7 +55,6 @@
             });
         }).catch((error) => 
         {
-          
           swal({
               title: "Hubo problemas para modificar su rubro, reintente luego!",
               text: message.error,

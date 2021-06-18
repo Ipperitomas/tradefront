@@ -247,6 +247,27 @@
         objectSend.cabecera = this.cabecera;
         objectSend.cuerpo = this.productos_selected;
         console.log(objectSend);
+        axios.post('http://127.0.0.1:8000/api/inventory/', objectSend)
+          .then((res) => {
+            swal({
+              title: "Se creo el rubro correctamente!",
+              text: "",
+              icon: "success",
+              button: "Ok",
+            }).then((value) => {
+              window.location.reload();
+            });
+          })
+          .catch((error) => {
+            swal({
+              title: "Hubo problemas para crear su rubro, reintente luego!",
+              text: error.response.data.message.error,
+              icon: "error",
+              button: "Ok",
+            })
+          }).finally(() => {
+            
+        });
       },
       EliminarArticulo(ident){
         console.log(ident)
