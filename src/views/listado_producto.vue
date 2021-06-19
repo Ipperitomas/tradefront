@@ -53,7 +53,7 @@
             </tr>
           </tbody>
           <tbody v-else>
-            <td colspan="6"> No se encontraron Productos </td>
+            <td colspan="8"> No se encontraron Productos </td>
           </tbody>
         </table>
         <div class="box-footer clearfix">
@@ -112,6 +112,7 @@
     },
     mounted:function(){
       this.GetArticulo(1);
+      
     },
     components:{
       // requestLaravel

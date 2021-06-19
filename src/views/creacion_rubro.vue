@@ -23,10 +23,9 @@
     },
     methods:{
       CreateRubro(){
-        
         this.form = this.RecolectarDatos();
         console.log(this.form);
-        axios.post('http://127.0.0.1:8000/api/rubros/', this.form)
+        axios.post(this.$base_url+'api/rubros/', this.form)
           .then((res) => {
             swal({
               title: "Se creo el rubro correctamente!",
@@ -58,7 +57,7 @@
       }
     },
     mounted:function(){
-      
+
     }
   }
 </script>

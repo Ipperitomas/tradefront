@@ -58,7 +58,7 @@
     methods:{
       getData(){
         let vue_instance = this;
-        axios.get("http://127.0.0.1:8000/api/rubros/?all").then(function (response){
+        axios.get(this.$base_url+"api/rubros/?all").then(function (response){
           vue_instance.listado_rubros = response.data.data;
         })
       },
@@ -66,7 +66,7 @@
         this.form = this.RecolectarDatos();
         console.log(this.form);
         if(this.result){
-          axios.post('http://127.0.0.1:8000/api/products/', this.form)
+          axios.post(this.$base_url+'api/products/', this.form)
             .then((res) => {
               console.log(res);
               swal({
