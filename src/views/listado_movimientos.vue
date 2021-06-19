@@ -66,24 +66,23 @@
   export default {
     mixins:[requestLaravel],
     data: function(){
-      return {listado : null,pages:null,page_selected : null}
+      return {listado : null,listado_rubros:null,pages:null,page_selected : null}
     },
     methods:{
-      getRubros(page = 1){
+      getRubros(){
         let ruta = "rubros";
         let vue_instance = this;
-        this.attributes = this.getData(ruta,page).then(function response(response){
-          vue_instance.listado = response.data.data;
-          vue_instance.pages = response.data.data.links;
-          vue_instance.page_selected = page;
+        this.attributes = this.getData(ruta,"all").then(function response(response){
+          vue_instance.listado_rubros = response.data.data;
         });
       },
-      Editar(rubro_id){
-        console.log(rubro_id);
-        if(rubro_id){
-          window.location.href = window.location.origin+"/rubros/edit/"+rubro_id;
-        }
-      }
+      getListInventario(page = 1, filter){
+        let ruta = "inventory";
+        let vue_instance = this;
+        this.attributes = this.getData(ruta,page,filter).then(function response(response){
+          vue_instance.listado_rubros = response.data.data;
+        });
+      },
     },
     mounted:function(){
       console.log(this.$base_url);

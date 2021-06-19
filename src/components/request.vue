@@ -3,10 +3,10 @@
 import axios from 'axios';
 export default {
     methods : {
-        getData(ruta,page = 1){
+        getData(ruta,page = 1,filter = ""){
             let response = {};
             console.log("ruta -> ",ruta);
-            return axios.get(this.$base_url+"api/"+ruta+"?page="+page).then(function (response){
+            return axios.get(this.$base_url+"api/"+ruta+"?page="+page+filter).then(function (response){
                 response.listado = response.data.data;
                 response.pages = response.data.data.links;
                 return response;
