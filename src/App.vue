@@ -61,7 +61,7 @@
                   </a>
                 </li>
               </router-link>
-              <router-link to="/movimientos">
+              <router-link to="/listadomovimientos">
                 <li class="nav-item">
                   <a href="" class="nav-link text-left">
                     <i class="fas fa-cash-register mr-3"></i>
@@ -69,7 +69,7 @@
                   </a>
                 </li>
               </router-link>
-              <router-link to="/inventario">
+              <router-link to="/listadoinventario">
                 <li class="nav-item">
                   <a href="" class="nav-link text-left">
                     <i class="fas fa-boxes mr-3"></i>

@@ -44,10 +44,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/edicion_rubro.vue')
   },
   {
+    path: '/listadomovimientos',
+    name: '',
+    component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/listado_movimientos.vue')
+  },
+  {
     path: '/movimientos',
     name: '',
     component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/movimientos.vue')
+  },
+  {
+    path: '/listadoinventario',
+    name: '',
+    component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/listado_inventario.vue')
   }
+  
 ]
 
 const router = new VueRouter({

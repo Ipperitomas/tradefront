@@ -15,8 +15,11 @@
               <tr>
                 <th> Id </th>
                 <th> Fecha </th>
-                <th> N° Comprobante </th>
                 <th> Tipo Movimiento </th>
+                <th> Articulo </th>
+                <th> Rubro </th>
+                <th> Cantidad </th>
+                <th> Total </th>
               </tr>
           </thead>
           <tbody v-if="listado && listado.data">
@@ -28,12 +31,20 @@
                 {{elem_unico.fecha}}
               </td>
               <td> 
-                {{elem_unico.nro_comprobante}}
-              </td>
-              <td> 
                 {{elem_unico.tipo_accion}}
               </td>
-              
+              <td> 
+                {{elem_unico.nombre_articulo}}
+              </td>
+              <td> 
+                {{elem_unico.nombre_rubro}}
+              </td>
+              <td> 
+                {{elem_unico.cantidad}}
+              </td>
+              <td> 
+                {{elem_unico.p_total}}
+              </td>
               <!-- <td>
                 <button class="btn btn-primary btn-sm" @click="Editar(elem_unico.id)">  <i class="fas fa-edit"></i> </button>
               </td> -->
@@ -85,7 +96,7 @@
         });
       },
       getListInventario(page = 1, filter = ""){
-        let ruta = "inventory/heads";
+        let ruta = "inventory";
         let vue_instance = this;
         this.attributes = this.getData(ruta,page,filter).then(function response(response){
           vue_instance.listado = response.data.data;

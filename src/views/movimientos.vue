@@ -4,19 +4,23 @@
       <div class="section" v-show="view_cabecera">
         <h4> Cabecera </h4>
         <div class="row mb-5" >
-          <div class="col-5">
+          <div class="col-3">
             <label for=""> Fecha </label>
             <input class="form-control" type="date" name="fecha_cabecera" id="fecha_cabecera" v-model="fecha_selected" value="fecha_selected"> 
             <p class="text-danger float-left pt-2" v-show="msg_err.fecha_cabecera"> {{msg_err.fecha_cabecera}}</p>
-
           </div>
-          <div class="col-5">
+          <div class="col-3">
             <label for=""> Accion </label>
               <select name="accion_cabecera" id="accion_cabecera" class="form-control" v-model="accion_cabecera">
                 <option value="Compra" selected> Comprar </option>
                 <option value="Venta"> Vender </option>
               </select>
               <p class="text-danger float-left pt-2" v-show="msg_err.accion_cabecera"> {{msg_err.accion_cabecera}}</p>
+          </div>
+          <div class="col-3">
+            <label for=""> N° Comprobante </label>
+            <input class="form-control" type="text" name="nro_comprobante" id="nro_comprobante" v-model="nro_comprobante" > 
+            <p class="text-danger float-left pt-2" v-show="msg_err.nro_comprobante"> {{msg_err.nro_comprobante}}</p>
           </div>
           <div class="col-2 mt-4 pt-2">
             <button class="btn btn-primary" @click="CreateCabecera" > Crear Cabecera </button>
@@ -188,6 +192,7 @@
       precio_total:0,
       listado_productos:null,
       accion_cabecera:"",
+      nro_comprobante : "",
       productos_selected:new Array(),
       cantidad_selected:"",
       cabecera:"",
@@ -273,7 +278,7 @@
           document.getElementById("fecha_cabecera").classList.add("is-valid");
         }
         if(result){
-          this.cabecera = {accion : this.accion_cabecera, fecha : this.fecha_selected}; 
+          this.cabecera = {accion : this.accion_cabecera, fecha : this.fecha_selected,nro_comprobante : this.nro_comprobante}; 
           this.view_cabecera= false;
           this.view_body= true;
         }
