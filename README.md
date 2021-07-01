@@ -1,5 +1,9 @@
-# Sistema de Stock Basico
-# Ipperi Tomas 
+```
+Ipperi Tomas
+```
+```
+ Sistema de stock basico (Vue JS)
+```
 ## Project setup
 ```
 npm install
