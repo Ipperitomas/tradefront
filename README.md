@@ -1,5 +1,5 @@
-# tradefront
-
+# Sistema de Stock Basico
+# Ipperi Tomas 
 ## Project setup
 ```
 npm install
