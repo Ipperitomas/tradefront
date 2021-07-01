@@ -50,14 +50,14 @@
                 <li class="nav-item">
                   <a  class="nav-link text-left">
                     <i class="fas fa-box mr-3"></i>
-                    <span>Listado Productos</span>
+                    <span>Articulos</span>
                   </a>
                 </li>
               </router-link>
               <router-link to="/listadorubros">
                 <li class="nav-item">
                   <a href="" class="nav-link text-left">
-                    <i class="fas fa-sitemap mr-3"></i> <span>Listado Rubros</span>
+                    <i class="fas fa-sitemap mr-3"></i> <span>Rubros</span>
                   </a>
                 </li>
               </router-link>
