@@ -191,7 +191,7 @@
       precio_subtotal:0,
       precio_total:0,
       listado_productos:null,
-      accion_cabecera:"",
+      accion_cabecera:"Compra",
       nro_comprobante : "",
       productos_selected:new Array(),
       cantidad_selected:"",
@@ -211,8 +211,8 @@
         let vue_instance = this;
         let attributes = this.getData(ruta,page).then(function response(response){
           
-          vue_instance.listado_productos = response.data.data.data;
-          console.log(vue_instance.listado_productos);
+          console.log(response.data.data);
+          vue_instance.listado_productos = response.data.data;
         });
       },
       AddProduct(){

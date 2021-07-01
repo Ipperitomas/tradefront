@@ -5,7 +5,9 @@ export default {
     methods : {
         getData(ruta,page = 1,filter = ""){
             let response = {};
-            console.log("ruta -> ",ruta);
+            console.log("ruta -> ",ruta);            
+            console.log("filter -> ",filter);
+            console.log(this.$base_url+"api/"+ruta+"?page="+page+filter);
             return axios.get(this.$base_url+"api/"+ruta+"?page="+page+filter).then(function (response){
                 response.listado = response.data.data;
                 response.pages = response.data.data.links;
@@ -24,6 +26,12 @@ export default {
             return axios.put(this.$base_url+'api/'+ruta+'/', this.form).then(function (response){
                 return response;
             }).catch(err => console.log(err));
+        },
+        DeleteById(ruta,id = null){
+            let response = {};
+            return axios.delete(this.$base_url+"api/"+ruta+"/"+id).then(function (response){
+                return response;
+            }).catch(err => console.error(err));
         }
     },
 }

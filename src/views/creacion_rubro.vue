@@ -6,7 +6,7 @@
           <div class="col-4"></div>
           <div class="col-4">
             <label for=""> Nombre del rubro </label>
-            <input type="text" class="form-control" name="nombre" id="nombre">
+            <input type="text" class="form-control" name="nombre" id="nombre" v-model = "nombre">
           </div>
         </div>
         <button class="btn btn-primary float-right mt-1" v-on:submit="CreateRubro"> Crear Rubro </button>
@@ -19,7 +19,7 @@
   document.title = "Crear Rubros";
   export default {
     data: function(){
-      return {form:null}
+      return {form:null,nombre:null}
     },
     methods:{
       CreateRubro(){
@@ -33,7 +33,8 @@
               icon: "success",
               button: "Ok",
             }).then((value) => {
-              window.location.href = window.location.origin+"/listadorubros";
+              //window.location.href = window.location.origin+"/listadorubros";
+              this.nombre = "";
             });
           })
           .catch((error) => {

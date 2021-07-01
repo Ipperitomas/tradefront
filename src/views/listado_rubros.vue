@@ -16,6 +16,7 @@
                 <th> Id </th>
                 <th> Nombre </th>
                 <th> Edición </th>
+                <th> Eliminar </th>
               </tr>
           </thead>
           <tbody v-if="listado && listado.data">
@@ -28,6 +29,9 @@
               </td>
               <td>
                 <button class="btn btn-primary btn-sm" @click="Editar(elem_unico.id)">  <i class="fas fa-edit"></i> </button>
+              </td>
+              <td>
+                <button class="btn btn-danger btn-sm" @click="Eliminar(elem_unico.id)">  <i class="fas fa-times"></i> </button>
               </td>
             </tr>
           </tbody>
@@ -66,13 +70,13 @@
   export default {
     mixins:[requestLaravel],
     data: function(){
-      return {listado : null,pages:null,page_selected : null}
+      return {listado : null,pages:null,page_selected : null,ruta:"rubros"}
     },
     methods:{
       getRubros(page = 1){
-        let ruta = "rubros";
+        
         let vue_instance = this;
-        this.attributes = this.getData(ruta,page).then(function response(response){
+        this.attributes = this.getData(this.ruta,page).then(function response(response){
           vue_instance.listado = response.data.data;
           vue_instance.pages = response.data.data.links;
           vue_instance.page_selected = page;
@@ -83,6 +87,25 @@
         if(rubro_id){
           window.location.href = window.location.origin+"/rubros/edit/"+rubro_id;
         }
+      },
+      Eliminar(rubro_id){
+        let vue_instance = this;
+        swal({
+          title: "¿ Estas Seguro de eliminar este rubro ?",
+          text: "Si eliminas este rubro, sera imposible recuperarlo luego!",
+          icon: "warning",
+          buttons: ['Cancelar','Eliminar'],
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            this.attributes = this.DeleteById(this.ruta,rubro_id).then(function response(response){
+              vue_instance.listado = response.data.data;
+              vue_instance.pages = response.data.data.links;
+              vue_instance.page_selected = page;
+            });
+          }
+        });
       }
     },
     mounted:function(){

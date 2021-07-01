@@ -2,7 +2,14 @@
   <div class="content-wrapper">
     <div class="container">
       <div class="row">
-        <div class="col-8"></div>
+        <div class="col-8 mt-4">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar Por N° de Comprobante" id="busqueda" name="busqueda" v-model="busqueda" @keyup="getListInventario(page_selected,'&busqueda='+busqueda)" >
+            <div class="input-group-append">
+              <button class="btn btn-primary float-right " @click="getListInventario(page_selected,'&busqueda='+busqueda)"> <i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </div>
         <div class="col-4 mt-4">
           <router-link to="/movimientos">
             <button class="btn btn-primary btn-sm float-right mb-3"> Nuevo Movimiento <i class="fas fa-plus"></i> </button>
@@ -74,7 +81,7 @@
   export default {
     mixins:[requestLaravel],
     data: function(){
-      return {listado : null,listado_rubros:null,pages:null,page_selected : null}
+      return {listado : null,listado_rubros:null,pages:null,page_selected : null,busqueda:null}
     },
     methods:{
       getRubros(){
@@ -89,6 +96,7 @@
         let vue_instance = this;
         this.attributes = this.getData(ruta,page,filter).then(function response(response){
           vue_instance.listado = response.data.data;
+          vue_instance.page_selected = page;
         });
       },
     },
