@@ -58,8 +58,8 @@
     methods:{
       getData(){
         let vue_instance = this;
-        axios.get(this.$base_url+"api/rubros/?all").then(function (response){
-          vue_instance.listado_rubros = response.data.data;
+        axios.get(this.$base_url+"api/rubros/all").then(function (response){
+          vue_instance.listado_rubros = response.data;
         })
       },
       CreateProduct(){
@@ -68,7 +68,6 @@
         if(this.result){
           axios.post(this.$base_url+'api/products/', this.form)
             .then((res) => {
-              console.log(res);
               swal({
                 title: "Se creo el Producto correctamente!",
                 text: "",

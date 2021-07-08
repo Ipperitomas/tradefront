@@ -57,7 +57,13 @@ const routes = [
     path: '/listadoinventario',
     name: '',
     component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/listado_inventario.vue')
-  }
+  },
+  {
+    path: '/inventario/ver/:id',
+    name: '',
+    component: () => import(/* webpackChunkName: "creacion_producto" */ '../views/detalle_inventario.vue')
+  },
+  
   
 ]
 

@@ -2,7 +2,11 @@
   <div class="content-wrapper">
     <div class="container">
       <div class="row">
-        <div class="col-8"></div>
+        <div class="col-8 ">
+          <div class="col-4 mt-4">
+            <input type="date" id="fecha_search" name="fecha_search" class="form-control" v-model="fecha_search" @change="getListInventario">
+          </div>
+        </div>
         <div class="col-4 mt-4">
           <router-link to="/movimientos">
             <button class="btn btn-primary btn-sm float-right mb-3"> Nuevo Movimiento <i class="fas fa-plus"></i> </button>
@@ -13,42 +17,26 @@
         <table class="table table-hover table-bordered">
           <thead>
               <tr>
-                <th> Id </th>
-                <th> Fecha </th>
-                <th> Tipo Movimiento </th>
                 <th> Articulo </th>
-                <th> Rubro </th>
-                <th> Cantidad </th>
-                <th> Total </th>
+                <th> Cantidad Restante </th>
               </tr>
           </thead>
           <tbody v-if="listado && listado.data">
             <tr v-for="elem_unico in listado.data" v-if="listado.data">
               <td> 
-                {{elem_unico.id}}
-              </td>
-              <td> 
-                {{elem_unico.fecha}}
-              </td>
-              <td> 
-                {{elem_unico.tipo_accion}}
-              </td>
-              <td> 
                 {{elem_unico.nombre_articulo}}
-              </td>
-              <td> 
-                {{elem_unico.nombre_rubro}}
               </td>
               <td> 
                 {{elem_unico.cantidad}}
               </td>
-              <td> 
-                {{elem_unico.p_total}}
-              </td>
-              <!-- <td>
-                <button class="btn btn-primary btn-sm" @click="Editar(elem_unico.id)">  <i class="fas fa-edit"></i> </button>
-              </td> -->
             </tr>
+          </tbody>
+          <tbody v-else>
+            <tr >
+              <td colspan="5">
+                No se encontraron datos para esta fecha {{fecha_search}} 
+              </td>
+            </tr> 
           </tbody>
         </table>
         <div class="box-footer clearfix">
@@ -85,7 +73,7 @@
   export default {
     mixins:[requestLaravel],
     data: function(){
-      return {listado : null,listado_rubros:null,pages:null,page_selected : null}
+      return {listado : null,listado_rubros:null,pages:null,page_selected : null,filters:""}
     },
     methods:{
       getRubros(){
@@ -95,16 +83,32 @@
           vue_instance.listado_rubros = response.data.data;
         });
       },
-      getListInventario(page = 1, filter = ""){
+      getListInventario(){
         let ruta = "inventory";
+        let page = "all";
         let vue_instance = this;
-        this.attributes = this.getData(ruta,page,filter).then(function response(response){
+        vue_instance.filters = "";
+        if(vue_instance.fecha_search){
+          vue_instance.filters = "&fecha="+this.fecha_search;
+        }
+        this.attributes = this.getData(ruta,page,vue_instance.filters).then(function response(response){
           vue_instance.listado = response.data.data;
         });
       },
     },
     mounted:function(){
       console.log(this.$base_url);
+      let f = new Date();
+      let mes = f.getMonth() +1;
+      let dia = f.getDate();
+      if(mes < 10){
+        mes = "0"+mes;
+      }
+      if(dia < 10){
+        dia = "0"+dia;
+      }
+      this.fecha_search = f.getFullYear() + "-" + (mes) + "-" + dia;
+      console.log(this.fecha_search);
       this.getListInventario(1);
     }
   }

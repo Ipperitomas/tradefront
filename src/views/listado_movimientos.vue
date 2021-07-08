@@ -24,6 +24,7 @@
                 <th> Fecha </th>
                 <th> N° Comprobante </th>
                 <th> Tipo Movimiento </th>
+                <th> Ver Detalle </th>
               </tr>
           </thead>
           <tbody v-if="listado && listado.data">
@@ -40,10 +41,9 @@
               <td> 
                 {{elem_unico.tipo_accion}}
               </td>
-              
-              <!-- <td>
-                <button class="btn btn-primary btn-sm" @click="Editar(elem_unico.id)">  <i class="fas fa-edit"></i> </button>
-              </td> -->
+              <td>
+                <button class="btn btn-primary btn-sm" @click="Ver(elem_unico.id)">  <i class="fas fa-eye"></i> </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -99,10 +99,14 @@
           vue_instance.page_selected = page;
         });
       },
+      Ver(id){
+        window.location.href = window.location.origin+"/inventario/ver/"+id;
+
+      }
     },
     mounted:function(){
       console.log(this.$base_url);
       this.getListInventario(1);
-    }
+    },
   }
 </script>
