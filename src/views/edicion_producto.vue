@@ -72,7 +72,7 @@
         let ruta = "rubros";
         let vue_instance = this;
         let rsp = this.getData(ruta,"all").then(function response(response){
-          vue_instance.listado_rubros = response.data.data;
+          vue_instance.listado_rubros = response.data;
         });
       },
       GetProductById(){
