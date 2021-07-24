@@ -2,10 +2,14 @@
   <div class="content-wrapper">
     <div class="container">
       <div class="row">
-        <div class="col-8 ">
-          <div class="col-4 mt-4">
+        <div class="col-4 mt-4">
             <input type="date" id="fecha_search" name="fecha_search" class="form-control" v-model="fecha_search" @change="getListInventario">
-          </div>
+        </div>
+        <div class="col-4 mt-4">
+          <select name="rubros_id" id="rubros" class="form-control" @change="getListInventario">
+            <option value="all"> Todos </option>
+            <option v-for="elem_rubros in listado_rubros" :value="elem_rubros.id" v-model="rubro_selected">{{elem_rubros.nombre}}</option>
+          </select>
         </div>
         <div class="col-4 mt-4">
           <router-link to="/movimientos">
@@ -18,6 +22,7 @@
           <thead>
               <tr>
                 <th> Articulo </th>
+                <th> Rubro </th>
                 <th> Cantidad Restante </th>
               </tr>
           </thead>
@@ -25,6 +30,9 @@
             <tr v-for="elem_unico in listado.data" v-if="listado.data">
               <td> 
                 {{elem_unico.nombre_articulo}}
+              </td>
+              <td> 
+                {{elem_unico.nombre_rubro}}
               </td>
               <td> 
                 {{elem_unico.cantidad}}
@@ -73,7 +81,7 @@
   export default {
     mixins:[requestLaravel],
     data: function(){
-      return {listado : null,listado_rubros:null,pages:null,page_selected : null,filters:""}
+      return {listado : null,listado_rubros:null,pages:null,page_selected : null,filters:"",fecha_search:null,rubro_selected:"all"}
     },
     methods:{
       getRubros(){
@@ -90,13 +98,22 @@
         vue_instance.filters = "";
         if(vue_instance.fecha_search){
           vue_instance.filters = "&fecha="+this.fecha_search;
+          console.log(vue_instance.rubro_selected);
+          if(vue_instance.rubro_selected){
+            vue_instance.filters += "&rubro="+document.getElementById("rubros").value;
+          }
         }
+        console.log(vue_instance.filters);
         this.attributes = this.getData(ruta,page,vue_instance.filters).then(function response(response){
+          console.log("response",response.data.data);
           vue_instance.listado = response.data.data;
         });
       },
     },
+    created:function(){
+    },
     mounted:function(){
+      this.getRubros();
       console.log(this.$base_url);
       let f = new Date();
       let mes = f.getMonth() +1;
@@ -110,6 +127,7 @@
       this.fecha_search = f.getFullYear() + "-" + (mes) + "-" + dia;
       console.log(this.fecha_search);
       this.getListInventario(1);
+      
     }
   }
 </script>
